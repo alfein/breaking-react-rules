@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import ToggleTextButton from "./components/Greeting";
+import ToggleTextButton from "./components/ToggleTextButton";
 import autobind from "class-autobind";
 
 class App extends React.Component {
