@@ -2,13 +2,14 @@ import React from "react";
 import "./App.css";
 import ToggleTextButton from "./components/ToggleTextButton";
 import autobind from "class-autobind";
+import CommandCallbackConverter from "./CommandCallbackConverter"
 
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.myRef = React.createRef();
-
     autobind(this);
+
+    this.commandCallbackConverter = CommandCallbackConverter;
   }
 
   componentDidMount() {
@@ -23,21 +24,20 @@ class App extends React.Component {
     console.warn(
       "OMG, I am reading the state of my child component, React people would not like that."
     );
-    this.setState({ toggleButtonState: this.myRef.current.getState() });
+    this.setState({ toggleButtonState: this.commandCallbackConverter.getState() });
   }
 
   toggleOtherButton() {
     console.warn(
       "OMG, I am calling a function on the child component which actually changes it state! React people would not like that."
     );
-    this.myRef.current.toggleShowText();
+    this.commandCallbackConverter.toggleShowText();
   }
 
   render() {
     return (
       <div className="App">
-        <ToggleTextButton
-          ref={this.myRef}
+        <ToggleTextButton commandCallbackConverter={this.commandCallbackConverter}
           onStateChanged={this.handleToggled}
         />
         <div>

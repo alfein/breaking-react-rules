@@ -6,12 +6,18 @@ class ToggleTextButton extends React.Component {
     super(props);
 
     this.showText = true;
+    this.commandCallbackConverter = props.commandCallbackConverter;
 
     this.state = {
       showText: this.showText
     };
 
     autobind(this);
+
+    if(this.commandCallbackConverter) {
+      this.commandCallbackConverter.onGetState = () => this.getState();
+      this.commandCallbackConverter.onToggleShowText = () => this.toggleShowText();
+    }
   }
 
   getState() {
